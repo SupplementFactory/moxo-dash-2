@@ -36,24 +36,28 @@
     padding-left: var(--spacing-lg);
 }
 
+/* Make timeline markers larger and styled like a stepper */
 .timeline-list li::before {
     content: '';
     position: absolute;
-    left: -16px;
-    top: 2px;
-    width: 12px;
-    height: 12px;
-    background: var(--accent-color);
+    left: -28px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 3px solid var(--accent-color);
+    background: var(--white);
     border-radius: 50%;
+    box-sizing: border-box;
 }
 
+/* Vertical line connecting timeline steps */
 .timeline-list li:not(:last-child)::after {
     content: '';
     position: absolute;
-    left: -10px;
-    top: 14px;
-    width: 2px;
-    height: calc(100% - 14px);
+    left: -18px;
+    top: 22px;
+    width: 4px;
+    height: calc(100% - 22px);
     background: var(--gray-200);
 }
 
@@ -141,25 +145,27 @@
     border-radius: var(--border-radius);
     padding: var(--spacing-md);
     /* Override any default borders and shadows */
-    border: none;
-    box-shadow: var(--shadow-sm);
-    cursor: default;
+    border: none !important;
+    box-shadow: var(--shadow-sm) !important;
+    cursor: default !important;
+    padding: var(--spacing-md) !important;
+    gap: var(--spacing-md) !important;
 }
 
 /* Metric icon styling */
 .metric-icon {
-    flex: 0 0 40px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gray-200);
-    color: var(--primary-color);
-    font-size: 1.25rem;
+    flex: 0 0 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--gray-200) !important;
+    color: var(--primary-color) !important;
+    font-size: 1.25rem !important;
     /* Remove default borders on icons */
-    border: none;
+    border: none !important;
 }
 
 /* Metric content adjustments */
@@ -178,4 +184,24 @@
 .metric-status {
     font-size: var(--font-size-xs);
     color: var(--gray-500);
+}
+
+/* Override hover effects from base styles */
+.metric-card:hover {
+    transform: none !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: none !important;
+}
+
+/* Override progress ring color to use accent color and thicker stroke */
+.progress-ring-circle {
+    stroke: var(--accent-color) !important;
+    stroke-width: 10 !important;
+}
+
+/* Base ring background style */
+.progress-ring-bg {
+    fill: none;
+    stroke: var(--gray-200);
+    stroke-width: 10;
 }
