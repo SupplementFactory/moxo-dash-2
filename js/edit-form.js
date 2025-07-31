@@ -2,8 +2,28 @@
 
 class EditForm {
     constructor() {
-        this.dataStorage = window.dataStorage;
+        // Ensure multi-project and data storage instances exist. If they
+        // haven't been created elsewhere (like on the dashboard page),
+        // create new instances here. Also assign them back to the window
+        // object so other scripts can reference the same instances.
+        if (!window.multiProjectStorage) {
+            try {
+                window.multiProjectStorage = new MultiProjectStorage();
+            } catch (e) {
+                console.warn('Could not instantiate MultiProjectStorage:', e);
+            }
+        }
         this.multiProjectStorage = window.multiProjectStorage;
+
+        if (!window.dataStorage) {
+            try {
+                window.dataStorage = new DataStorage();
+            } catch (e) {
+                console.warn('Could not instantiate DataStorage:', e);
+            }
+        }
+        this.dataStorage = window.dataStorage;
+
         this.validator = new FormValidator();
         this.form = null;
         this.isDirty = false;
@@ -93,15 +113,27 @@ class EditForm {
     // Load form data from current project
     loadFormData() {
         const data = this.currentProject || this.dataStorage.getData();
-        
+
         if (!data) {
             console.warn('No project data found');
             return;
         }
-        
-        // Populate all form fields
+
+        // Populate all form fields. Many of the fields in the form use
+        // different name attributes than the underlying data keys, so handle
+        // those mappings explicitly.
         Object.keys(data).forEach(key => {
-            const field = this.form.querySelector(`[name="${key}"]`);
+            let field = this.form.querySelector(`[name="${key}"]`);
+
+            // Map data keys to form field names when necessary
+            if (!field) {
+                if (key === 'name') {
+                    field = this.form.querySelector('[name="projectName"]');
+                } else if (key === 'totalBudget') {
+                    field = this.form.querySelector('[name="budgetTotal"]');
+                }
+            }
+
             if (field) {
                 field.value = data[key];
             }
@@ -117,7 +149,10 @@ class EditForm {
         // Handle form submission
         this.form.addEventListener("submit", (e) => {
             e.preventDefault();
-            this.saveChanges();
+            // Call saveForm() directly instead of an undefined saveChanges() method
+            // to persist the form data. If saveChanges() exists in future, it can
+            // delegate to saveForm(), but for now this ensures the form saves correctly.
+            this.saveForm();
         });
 
         // Handle navigation buttons
@@ -293,9 +328,22 @@ class EditForm {
     getFormData() {
         const formData = new FormData(this.form);
         const data = {};
-        
+
+        // Convert FormData entries into a plain object
         for (const [key, value] of formData.entries()) {
             data[key] = value;
+        }
+
+        // Map form field names to data storage keys. Some form fields use
+        // different names than the underlying data model (e.g. projectName vs name,
+        // budgetTotal vs totalBudget). Normalize these here so saving works as expected.
+        if (data.projectName !== undefined) {
+            data.name = data.projectName;
+            delete data.projectName;
+        }
+        if (data.budgetTotal !== undefined) {
+            data.totalBudget = data.budgetTotal;
+            delete data.budgetTotal;
         }
 
         return data;
@@ -317,21 +365,35 @@ class EditForm {
                 return false;
             }
 
-            // Save to storage
-            const success = this.dataStorage.updateData(formData);
-            
-            if (success) {
+            // Persist the updated data. Instead of relying on DataStorage.updateProject()
+            // (which may not be defined or may fail if no existing data is present),
+            // merge the existing data with the form values and save it directly.
+            let currentData = this.currentProject || this.dataStorage.getData() || {};
+            // Ensure we preserve the project ID and slug if they exist
+            const updatedData = { ...currentData, ...formData };
+            if (!updatedData.id && currentData.id) {
+                updatedData.id = currentData.id;
+            }
+            if (!updatedData.slug && currentData.slug) {
+                updatedData.slug = currentData.slug;
+            }
+            // Save the merged data
+            this.dataStorage.setData(updatedData);
+            const updated = updatedData;
+
+            if (updated) {
+                // mark form clean and update UI statuses
                 this.isDirty = false;
                 this.updateSaveStatus();
                 this.updateFormStatus('Saved', 'ready');
                 this.showSuccessModal();
-                
-                // Clear auto-save timeout
+
+                // Clear any pending auto-save
                 if (this.autoSaveTimeout) {
                     clearTimeout(this.autoSaveTimeout);
                     this.autoSaveTimeout = null;
                 }
-                
+
                 return true;
             } else {
                 throw new Error('Failed to save data');
@@ -340,7 +402,9 @@ class EditForm {
         } catch (error) {
             console.error('Error saving form:', error);
             this.updateFormStatus('Save Error', 'error');
-            this.showErrorMessage('Failed to save changes');
+            // Include the error message in the notification to aid debugging
+            const message = error && error.message ? error.message : 'Unknown error';
+            this.showErrorMessage(`Failed to save changes: ${message}`);
             return false;
         }
     }
@@ -395,13 +459,20 @@ class EditForm {
             const isValid = this.validator.validateWithCrossFields(formData);
             
             if (isValid) {
-                const success = this.dataStorage.updateData(formData);
-                
-                if (success) {
-                    this.isDirty = false;
-                    this.updateSaveStatus();
-                    this.showAutoSaveIndicator();
+                // Persist by merging with existing data and saving directly. This
+                // mirrors the behaviour of saveForm() but without showing modals.
+                let currentData = this.currentProject || this.dataStorage.getData() || {};
+                const updatedData = { ...currentData, ...formData };
+                if (!updatedData.id && currentData.id) {
+                    updatedData.id = currentData.id;
                 }
+                if (!updatedData.slug && currentData.slug) {
+                    updatedData.slug = currentData.slug;
+                }
+                this.dataStorage.setData(updatedData);
+                this.isDirty = false;
+                this.updateSaveStatus();
+                this.showAutoSaveIndicator();
             }
         } catch (error) {
             console.error('Auto-save error:', error);
