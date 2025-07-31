@@ -10,6 +10,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!--
+      Dynamically set the base path when the page is served from a nested route (e.g., /projects/slug).
+      This ensures that relative links for CSS, JS, and assets still resolve from the site root.
+    -->
+    <script>
+      (function() {
+        var path = window.location.pathname;
+        // When served from a nested route like "/projects/{slug}", prefix resources from root
+        // Do not apply this when loading from the local filesystem (starts with '/home' or similar)
+        if (path.startsWith('/projects/')) {
+          var base = document.createElement('base');
+          base.href = '/';
+          document.head.prepend(base);
+        }
+      })();
+    </script>
 </head>
 <body>
     <!-- Loading Screen (unchanged) -->
@@ -77,6 +94,9 @@
                     <div class="progress-container">
                         <div class="progress-circle">
                             <svg class="progress-ring" width="120" height="120">
+                                <!-- Base ring showing the full circle background -->
+                                <circle class="progress-ring-bg" cx="60" cy="60" r="54"></circle>
+                                <!-- Foreground ring showing progress; stroke-dashoffset updated via JS -->
                                 <circle class="progress-ring-circle" cx="60" cy="60" r="54"></circle>
                             </svg>
                             <div class="progress-text">
