@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heal - Greens Blend | Project Dashboard - Supplement Factory</title>
+    <!-- Base stylesheet and fonts -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/index-tidy.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Loading Screen -->
+    <!-- Loading Screen (unchanged) -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
             <div class="loading-spinner"></div>
@@ -44,166 +46,134 @@
             </div>
         </header>
 
-        <!-- Main Dashboard -->
         <main class="dashboard">
-            <!-- Timeline Section -->
-            <section class="timeline-section">
-                <div class="section-header">
+            <!-- Timeline & Progress Row -->
+            <section class="dashboard-main">
+                <!-- Timeline Card -->
+                <div class="card timeline-card">
                     <h2>Project Timeline</h2>
-                    <div class="automation-status" id="automation-status">
-                        <div class="status-dot"></div>
-                        <span>Running</span>
-                    </div>
+                    <ul class="timeline-list">
+                        <li>
+                            <span class="timeline-label">Start Date</span>
+                            <span class="timeline-value" id="start-date">Awaiting brief approval</span>
+                        </li>
+                        <li>
+                            <span class="timeline-label">Estimated Completion</span>
+                            <span class="timeline-value" id="estimated-completion">TBD</span>
+                        </li>
+                        <li>
+                            <span class="timeline-label">Current Stage</span>
+                            <span class="timeline-value" id="current-stage">Formulation brief awaiting approval</span>
+                        </li>
+                        <li>
+                            <span class="timeline-label">Progress</span>
+                            <span class="timeline-value" id="progress-text">10%</span>
+                        </li>
+                    </ul>
                 </div>
-                
-                <div class="timeline-grid">
-                    <div class="timeline-item">
-                        <div class="timeline-label">START DATE</div>
-                        <div class="timeline-value" id="start-date">Awaiting brief approval</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-label">ESTIMATED COMPLETION</div>
-                        <div class="timeline-value" id="estimated-completion">TBD</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-label">CURRENT STAGE</div>
-                        <div class="timeline-value" id="current-stage">Formulation brief awaiting approval</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-label">PROGRESS</div>
-                        <div class="timeline-value" id="progress-text">10%</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Progress Section -->
-            <section class="progress-section">
-                <div class="section-header">
+                <!-- Progress Card -->
+                <div class="card progress-card">
                     <h2>Overall Progress</h2>
-                </div>
-                
-                <div class="progress-container">
-                    <div class="progress-circle">
-                        <svg class="progress-ring" width="120" height="120">
-                            <circle class="progress-ring-circle" cx="60" cy="60" r="54"></circle>
-                        </svg>
-                        <div class="progress-text">
-                            <span class="progress-percentage" id="progress-percentage">10%</span>
-                            <span class="progress-label">COMPLETE</span>
+                    <div class="progress-container">
+                        <div class="progress-circle">
+                            <svg class="progress-ring" width="120" height="120">
+                                <circle class="progress-ring-circle" cx="60" cy="60" r="54"></circle>
+                            </svg>
+                            <div class="progress-text">
+                                <span class="progress-percentage" id="progress-percentage">10%</span>
+                                <span class="progress-label">COMPLETE</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Notes Section -->
-            <section class="notes-section">
-                <div class="section-header">
-                    <h2>Project Notes</h2>
+            <!-- Project Information & Metrics -->
+            <section class="info-section">
+                <div class="info-grid">
+                    <!-- Project Information Card -->
+                    <div class="card info-card">
+                        <h2>Project Information</h2>
+                        <div class="info-item">
+                            <h4>Description</h4>
+                            <p id="project-description">Premium organic greens blend featuring spirulina, chlorella, wheatgrass, and barley grass. Formulated for maximum bioavailability and nutrient density with natural flavor enhancement. Target market: health-conscious consumers seeking convenient superfood nutrition.</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>Key Ingredients</h4>
+                            <p id="key-ingredients">Organic Spirulina (2000mg), Chlorella (1500mg), Wheatgrass (1000mg), Barley Grass (1000mg), Moringa Leaf (500mg), Natural Mint Flavor, Stevia Extract</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>Target Specifications</h4>
+                            <p id="target-specs">30-serving container, 8g serving size, pH 6.5-7.5, moisture content &lt;5%, particle size 80-120 mesh, green color index 85-95, 24-month shelf life</p>
+                        </div>
+                        <div class="info-meta">
+                            <div class="meta-item">
+                                <strong>Created:</strong> <span id="created-date">Tuesday, July 15, 2025</span>
+                            </div>
+                            <div class="meta-item">
+                                <strong>Last Updated:</strong> <span id="last-updated">Thursday, July 24, 2025</span>
+                            </div>
+                            <div class="meta-item">
+                                <strong>Project Manager:</strong> <span id="project-manager">Dr. Sarah Chen, PhD - Senior Formulation Scientist</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Metrics Card -->
+                    <div class="card info-card">
+                        <h2>Project Metrics</h2>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-icon">🧪</div>
+                                <div class="metric-content">
+                                    <h4>Tests Completed</h4>
+                                    <div class="metric-value" id="tests-completed">2/19</div>
+                                    <div class="metric-status">In Progress</div>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">📊</div>
+                                <div class="metric-content">
+                                    <h4>Quality Score</h4>
+                                    <div class="metric-value" id="quality-score">85.0%</div>
+                                    <div class="metric-status quality-below">Above Target (90%)</div>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">⏱️</div>
+                                <div class="metric-content">
+                                    <h4>Time Efficiency</h4>
+                                    <div class="metric-value" id="time-efficiency">100%</div>
+                                    <div class="metric-status">On schedule</div>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">💰</div>
+                                <div class="metric-content">
+                                    <h4>Budget Status</h4>
+                                    <div class="metric-value" id="budget-used">$1,250</div>
+                                    <div class="metric-status" id="budget-remaining">$13,750 remaining</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="notes-content" id="project-notes">
-                    <p>Project initiated. Awaiting client approval of formulation brief to begin development timeline.</p>
+            </section>
+
+            <!-- Development Roadmap -->
+            <section class="roadmap-section">
+                <div class="section-header">
+                    <h2>Development Roadmap</h2>
+                    <p class="section-description">Comprehensive supplement formulation process with 19 specialized stages</p>
+                </div>
+                <div class="roadmap-container" id="roadmap-container">
+                    <div class="roadmap-loading">
+                        <div class="loading-spinner-small"></div>
+                        <p>Loading development stages...</p>
+                    </div>
                 </div>
             </section>
         </main>
-
-        <!-- Development Roadmap -->
-        <section class="roadmap-section">
-            <div class="section-header">
-                <h2>Development Roadmap</h2>
-                <p class="section-description">Comprehensive supplement formulation process with 19 specialized stages</p>
-            </div>
-            
-            <div class="roadmap-container" id="roadmap-container">
-                <!-- Roadmap stages will be dynamically inserted here -->
-                <div class="roadmap-loading">
-                    <div class="loading-spinner-small"></div>
-                    <p>Loading development stages...</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Project Information -->
-        <section class="info-section">
-            <div class="info-grid">
-                <!-- Project Information -->
-                <div class="info-card">
-                    <h3>Project Information</h3>
-                    
-                    <div class="info-item">
-                        <h4>Description</h4>
-                        <p id="project-description">Premium organic greens blend featuring spirulina, chlorella, wheatgrass, and barley grass. Formulated for maximum bioavailability and nutrient density with natural flavor enhancement. Target market: health-conscious consumers seeking convenient superfood nutrition.</p>
-                    </div>
-                    
-                    <div class="info-item">
-                        <h4>Key Ingredients</h4>
-                        <p id="key-ingredients">Organic Spirulina (2000mg), Chlorella (1500mg), Wheatgrass (1000mg), Barley Grass (1000mg), Moringa Leaf (500mg), Natural Mint Flavor, Stevia Extract</p>
-                    </div>
-                    
-                    <div class="info-item">
-                        <h4>Target Specifications</h4>
-                        <p id="target-specs">30-serving container, 8g serving size, pH 6.5-7.5, moisture content <5%, particle size 80-120 mesh, green color index 85-95, 24-month shelf life</p>
-                    </div>
-                    
-                    <div class="info-meta">
-                        <div class="meta-item">
-                            <strong>Created:</strong> <span id="created-date">Tuesday, July 15, 2025</span>
-                        </div>
-                        <div class="meta-item">
-                            <strong>Last Updated:</strong> <span id="last-updated">Thursday, July 24, 2025</span>
-                        </div>
-                        <div class="meta-item">
-                            <strong>Project Manager:</strong> <span id="project-manager">Dr. Sarah Chen, PhD - Senior Formulation Scientist</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Metrics -->
-                <div class="info-card">
-                    <h3>Project Metrics</h3>
-                    
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="metric-icon">🧪</div>
-                            <div class="metric-content">
-                                <h4>Tests Completed</h4>
-                                <div class="metric-value" id="tests-completed">2/19</div>
-                                <div class="metric-status">In Progress</div>
-                            </div>
-                        </div>
-                        
-                        <div class="metric-card">
-                            <div class="metric-icon">📊</div>
-                            <div class="metric-content">
-                                <h4>Quality Score</h4>
-                                <div class="metric-value" id="quality-score">85.0%</div>
-                                <div class="metric-status quality-below">Above Target (90%)</div>
-                            </div>
-                        </div>
-                        
-                        <div class="metric-card">
-                            <div class="metric-icon">⏱️</div>
-                            <div class="metric-content">
-                                <h4>Time Efficiency</h4>
-                                <div class="metric-value" id="time-efficiency">100%</div>
-                                <div class="metric-status">On schedule</div>
-                            </div>
-                        </div>
-                        
-                        <div class="metric-card">
-                            <div class="metric-icon">💰</div>
-                            <div class="metric-content">
-                                <h4>Budget Status</h4>
-                                <div class="metric-value" id="budget-used">$1,250</div>
-                                <div class="metric-status" id="budget-remaining">$13,750 remaining</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
-
     <!-- Error Message -->
     <div id="error-message" class="error-message" style="display: none;">
         <div class="error-content">
@@ -214,44 +184,26 @@
         </div>
     </div>
 
-    <!-- JavaScript - SIMPLIFIED INITIALIZATION -->
+    <!-- JavaScript - reuse original scripts -->
     <script>
-        // Debug logging
-        console.log('Starting script initialization...');
-        
-        // Global error handler
         window.addEventListener('error', function(e) {
             console.error('Global error:', e.error);
             const errorMsg = document.getElementById('error-message');
             if (errorMsg) errorMsg.style.display = 'block';
         });
-        
-        // Simple initialization after all scripts load
         window.addEventListener('load', function() {
-            console.log('All scripts loaded, starting initialization...');
-            
             setTimeout(() => {
                 try {
-                    // Initialize data storage first
                     if (typeof DataStorage !== 'undefined') {
                         window.dataStorage = new DataStorage();
-                        console.log('✓ Data storage initialized');
                     }
-                    
-                    // Initialize project renderer
                     if (typeof ProjectRenderer !== 'undefined') {
                         window.projectRenderer = new ProjectRenderer();
-                        console.log('✓ Project renderer initialized');
                     }
-                    
-                    // Hide loading screen and show content
                     document.getElementById('loading-screen').style.display = 'none';
                     document.getElementById('main-content').style.display = 'block';
-                    
-                    console.log('✓ Initialization complete');
-                    
                 } catch (error) {
-                    console.error('❌ Initialization error:', error);
+                    console.error('Initialization error:', error);
                     document.getElementById('loading-screen').style.display = 'none';
                     const errorMsg = document.getElementById('error-message');
                     if (errorMsg) errorMsg.style.display = 'block';
@@ -259,12 +211,9 @@
             }, 500);
         });
     </script>
-    
-    <!-- Load scripts in correct order -->
     <script src="js/multi-project-storage.js"></script>
     <script src="js/data-storage.js"></script>
     <script src="js/project-renderer.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>
-
