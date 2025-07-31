@@ -117,3 +117,65 @@
     padding: 0 4px;
     border-radius: 4px;
 }
+
+/* Grid layout for project information and metrics cards */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Layout for metrics inside the metrics card */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Metric card styling */
+.metric-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    background: var(--gray-50);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    /* Override any default borders and shadows */
+    border: none;
+    box-shadow: var(--shadow-sm);
+    cursor: default;
+}
+
+/* Metric icon styling */
+.metric-icon {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-200);
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    /* Remove default borders on icons */
+    border: none;
+}
+
+/* Metric content adjustments */
+.metric-content h4 {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+}
+
+.metric-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.metric-status {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+}
