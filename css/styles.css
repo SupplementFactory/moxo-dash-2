@@ -1054,3 +1054,70 @@ body {
         color: inherit !important;
     }
 }
+
+/* --- Custom tidy dashboard overrides --- */
+/* Grid layout for project information and metrics cards */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Layout for metrics inside the metrics card */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Metric card styling */
+.metrics-grid .metric-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    background: var(--gray-50);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    border: none !important;
+    box-shadow: var(--shadow-sm);
+    cursor: default;
+}
+
+.metrics-grid .metric-card:hover {
+    transform: none !important;
+    box-shadow: var(--shadow-sm);
+    border: none;
+}
+
+/* Metric icon styling */
+.metrics-grid .metric-icon {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-200);
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    border: none;
+}
+
+/* Metric content adjustments */
+.metrics-grid .metric-content h4 {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+}
+
+.metrics-grid .metric-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.metrics-grid .metric-status {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+}
