@@ -1,0 +1,119 @@
+/* Custom styles for the tidy project dashboard */
+
+/* Layout container for timeline and progress */
+.dashboard-main {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Generic card container */
+.card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+    flex: 1 1 280px;
+    min-width: 280px;
+}
+
+.card h2 {
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-xl);
+}
+
+/* Vertical timeline styles */
+.timeline-list {
+    list-style: none;
+    position: relative;
+    padding-left: 28px;
+}
+
+.timeline-list li {
+    position: relative;
+    margin-bottom: var(--spacing-lg);
+    padding-left: var(--spacing-lg);
+}
+
+.timeline-list li::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 2px;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-color);
+    border-radius: 50%;
+}
+
+.timeline-list li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 14px;
+    width: 2px;
+    height: calc(100% - 14px);
+    background: var(--gray-200);
+}
+
+.timeline-label {
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.timeline-value {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+}
+
+/* Progress card overrides */
+.progress-card {
+    text-align: center;
+}
+
+.progress-card .progress-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+}
+
+/* Ensure the progress ring sits behind the text */
+.progress-circle {
+    position: relative;
+}
+
+.progress-circle svg {
+    /* Position the SVG absolutely so it sits behind the text */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.progress-circle .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+}
+
+/* Info card adjustments */
+.info-card {
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Ensure progress percentage displays cleanly */
+.progress-percentage {
+    text-decoration: none;
+    /* Add a subtle background so the progress ring doesn't cross the text */
+    background: var(--white);
+    padding: 0 4px;
+    border-radius: 4px;
+}
